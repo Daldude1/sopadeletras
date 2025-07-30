@@ -25,14 +25,14 @@ bool colocarPalabra(char tablero[TAMANO][TAMANO], string palabra) {
 
     int deltaFila = 0, deltaColumna = 0;
     switch (direccion) {
-        case 0: deltaFila = -1; break; 
-        case 1: deltaFila = 1; break;  
-        case 2: deltaColumna = -1; break; 
-        case 3: deltaColumna = 1; break;  
-        case 4: deltaFila = -1; deltaColumna = -1; break; 
-        case 5: deltaFila = -1; deltaColumna = 1; break;  
-        case 6: deltaFila = 1; deltaColumna = -1; break;  
-        case 7: deltaFila = 1; deltaColumna = 1; break;   
+        case 0: deltaFila = -1; break; // Arriba
+        case 1: deltaFila = 1; break;  // Abajo
+        case 2: deltaColumna = -1; break; // Izquierda
+        case 3: deltaColumna = 1; break;  // Derecha
+        case 4: deltaFila = -1; deltaColumna = -1; break; // Diagonal arriba izquierda
+        case 5: deltaFila = -1; deltaColumna = 1; break;  // Diagonal arriba derecha
+        case 6: deltaFila = 1; deltaColumna = -1; break;  // Diagonal abajo izquierda
+        case 7: deltaFila = 1; deltaColumna = 1; break;   // Diagonal abajo derecha
     }
 
     for (int i = 0; i < palabra.length(); i++) {
@@ -40,10 +40,6 @@ bool colocarPalabra(char tablero[TAMANO][TAMANO], string palabra) {
         int nuevaColumna = columna + i * deltaColumna;
 
         if (nuevaFila < 0 || nuevaFila >= TAMANO || nuevaColumna < 0 || nuevaColumna >= TAMANO) {
-            return false; 
-        }
-
-        if (tablero[nuevaFila][nuevaColumna] != palabra[i] && tablero[nuevaFila][nuevaColumna] != ' ') {
             return false;
         }
     }
@@ -59,9 +55,10 @@ bool colocarPalabra(char tablero[TAMANO][TAMANO], string palabra) {
 
 void colocarPalabrasEnTablero(char tablero[TAMANO][TAMANO]) {
     for (int i = 0; i < 4; i++) {
-        bool colocada = false;
-        while (colocada == false) {
-            colocada = colocarPalabra(tablero, PALABRAS[i]);
+        while (true) {
+            if (colocarPalabra(tablero, PALABRAS[i])) {
+                break;
+            }
         }
     }
 }
